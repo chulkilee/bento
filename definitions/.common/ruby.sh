@@ -1,21 +1,19 @@
 #!/bin/bash -eux
 
+cd /tmp
+
 wget -O- http://pyyaml.org/download/libyaml/yaml-0.1.4.tar.gz | tar oxz
-cd yaml*
+cd yaml-0.1.4
 ./configure --prefix=/opt/ruby
 make && make install
 cd ..
-rm -rf *yaml*
+rm -rf yaml-0.1.4
 
-wget -O- http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.2-p290.tar.gz | tar oxz
-cd ruby*
+wget -O- http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz | tar oxz
+cd ruby-1.9.3-p392
 ./configure --prefix=/opt/ruby --with-opt-dir=/opt/ruby
 make && make install
-/opt/ruby/bin/gem update --system
-/opt/ruby/bin/gem update
-/opt/ruby/bin/gem clean
-/opt/ruby/bin/gem install chef puppet --no-rdoc --no-ri
 cd ..
-rm -rf *ruby*
+rm -rf ruby-1.9.3-p392
 
-echo 'PATH=$PATH:/opt/ruby/bin' > /etc/profile.d/ruby.sh
+echo 'PATH=$PATH:/opt/ruby/bin' > /etc/profile.d/opt-ruby.sh
